@@ -1,14 +1,12 @@
 import Phaser from "phaser";
 
-export default class MoveCloudsLeft extends Phaser.GameObjects.Component {
+export default class MoveCloudsLeft {
     /**
      * @param {Phaser.GameObjects.Image} gameObject The game object this component belongs to.
      * @param {number} speed The speed at which the cloud moves horizontally.
      * @param {number} resetX The x-position to reset the cloud to when it moves off screen.
      */
     constructor(gameObject: Phaser.GameObjects.Image, speed: number = 100, resetX: number = 2000) {
-        // @ts-ignore - Phaser.GameObjects.Component is actually not meant to be extended directly
-        super(gameObject);
 
         this.gameObject = gameObject;
         this.speed = speed;

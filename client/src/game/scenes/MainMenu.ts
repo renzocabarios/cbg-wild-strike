@@ -94,8 +94,8 @@ export default class MainMenu extends Phaser.Scene {
 
         // Set initial state for all UI elements with more dynamic starting positions
         buttons.forEach((button, index) => {
-            button.originalY = button.y;
-            button.originalX = button.x;
+            (button as any).originalY = button.y;
+            (button as any).originalX = button.x;
 
             // Randomize starting positions for more dynamic feel
             const direction = index % 2 === 0 ? 1 : -1;
@@ -106,7 +106,7 @@ export default class MainMenu extends Phaser.Scene {
         });
 
         // Set initial state for player name card - shrink from center
-        this.nameContainer.originalY = this.nameContainer.y;
+        (this.nameContainer as any).originalY = this.nameContainer.y;
         this.nameContainer.setAlpha(0.5);
         this.nameContainer.setScale(
             this.nameContainer.scaleX * 0.5,
@@ -114,11 +114,11 @@ export default class MainMenu extends Phaser.Scene {
         );
 
         // Player name starts invisible
-        this.playerName.originalY = this.playerName.y;
+        (this.playerName as any).originalY = this.playerName.y;
         this.playerName.setAlpha(0);
 
         // Leaderboards container starts smaller and rotated slightly
-        this.leaderboardsContainer.originalX = this.leaderboardsContainer.x;
+        (this.leaderboardsContainer as any).originalX = this.leaderboardsContainer.x;
         this.leaderboardsContainer.setAlpha(0.3);
         this.leaderboardsContainer.rotation = -0.05;
         this.leaderboardsContainer.setScale(
@@ -168,8 +168,8 @@ export default class MainMenu extends Phaser.Scene {
             buttons.forEach((button, index) => {
                 this.tweens.add({
                     targets: button,
-                    x: button.originalX,
-                    y: button.originalY,
+                    x: (button as any).originalX,
+                    y: (button as any).originalY,
                     scaleX: button.scaleX / 0.7,
                     scaleY: button.scaleY / 0.7,
                     alpha: 1,
@@ -180,7 +180,7 @@ export default class MainMenu extends Phaser.Scene {
                         // Add subtle hover animation once in place
                         this.tweens.add({
                             targets: button,
-                            y: button.originalY - 5,
+                            y: (button as any).originalY - 5,
                             duration: 1200,
                             yoyo: true,
                             repeat: -1,

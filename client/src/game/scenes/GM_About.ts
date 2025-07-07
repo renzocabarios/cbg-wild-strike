@@ -75,7 +75,7 @@ export default class GM_About extends Phaser.Scene {
 		
 		// Get all elements that need animation
 		const devContainer = this.children.getByName('devPictures') as Phaser.GameObjects.Container;
-		const devImages = devContainer ? devContainer.getAll() : [];
+		const devImages = devContainer ? devContainer.getAll() as Phaser.GameObjects.Image[] : [];
 		const titleText = this.children.getByName('4G_titleDEV') as Phaser.GameObjects.Image;
 		
 		// Animate developer images

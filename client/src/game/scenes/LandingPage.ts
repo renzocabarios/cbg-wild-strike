@@ -203,7 +203,7 @@ export default class LandingPage extends Phaser.Scene {
                     ease: 'Back.easeOut',
                     onComplete: () => {
                         // Create particles for an explosive effect
-                        if (this.particles) {
+                        if (this.textures.exists('particle')) {
                             const particles = this.add.particles(button.x, button.y, 'particle', {
                                 speed: { min: 300, max: 500 },
                                 scale: { start: 0.6, end: 0 },

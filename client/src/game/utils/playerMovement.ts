@@ -59,7 +59,7 @@ export function handlePlayerMovement(
     skillIcons?: SkillUIIcons
 ) {
     // Check if the player is touching the ground
-    const onGround = player.body.touching.down || player.body.blocked.down;
+    const onGround = player.body ? (player.body.touching.down || player.body.blocked.down) : false;
     let doubleJumpUsed = player.getData('doubleJumpUsed') || false;
     let isRunning = false;
     let isCrouching = cursors.down?.isDown || false;
@@ -79,7 +79,7 @@ export function handlePlayerMovement(
     }
     
     // Add footstep sound handling
-    const isMoving = player.body.velocity.x !== 0;
+    const isMoving = player.body ? (player.body.velocity.x !== 0) : false;
     const lastFootstep = player.getData('lastFootstep') || 0;
     const currentTime = player.scene.time.now;
     // Different intervals for different movement types
@@ -184,7 +184,7 @@ export function handlePlayerMovement(
     }
     
     // If position changed due to flipping, restore it
-    if (player.x !== prevX && player.body.velocity.x === 0) {
+    if (player.x !== prevX && player.body && player.body.velocity.x === 0) {
         player.x = prevX;
     }
     
@@ -231,7 +231,7 @@ export function handlePlayerMovement(
     // If player is in the air and no other animation has been set
     if (!onGround && !currentAnimation) {
         // Use jump animation when moving up, fall animation when moving down
-        if (player.body.velocity.y < 0) {
+        if (player.body && player.body.velocity.y < 0) {
             currentAnimation = animationKeys.jump;
         } else {
             currentAnimation = animationKeys.fall;

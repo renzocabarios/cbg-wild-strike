@@ -67,6 +67,14 @@ export default class M_Game extends Phaser.Scene {
     private otherPlayers: { [id: string]: Phaser.Physics.Arcade.Sprite } = {};
     private otherPlayerAnims: { [id: string]: AnimationManager } = {};
 
+    // Scene manager for handling camera and UI/gameplay layer separation
+    private sceneManager: SceneManager | null = null;
+
+    // Manager instances
+    private playerManager: PlayerManager | null = null;
+    private uiManager: UIManager | null = null;
+    private multiplayerManager: MultiplayerManager | null = null;
+
     // Match data from previous scene
     private matchData: {
         players?: {
@@ -625,7 +633,7 @@ export default class M_Game extends Phaser.Scene {
         this.sceneManager = new SceneManager(
             this,
             this.background,
-            [this.background_2], // Add background_2 to parallax elements
+            [], // Empty array for now, since we don't have TileSprite objects
             {
                 bestZoom: 1.5,
                 parallaxFactor: 0.4,
@@ -824,7 +832,7 @@ export default class M_Game extends Phaser.Scene {
      */
     private debugAnimationDurations(): void {
         console.log("=== ANIMATION DURATIONS ===");
-        const animKeys = Object.keys(this.anims.anims.entries);
+        const animKeys = Object.keys((this.anims as any).anims.entries);
         animKeys.forEach((key) => {
             const anim = this.anims.get(key);
             if (anim) {
@@ -1035,8 +1043,8 @@ export default class M_Game extends Phaser.Scene {
         this.playerManager.initialize(
             100,
             450,
-            this.playerHPText,
-            this.playerStaminaText
+            this.player1HP,
+            this.player1STA
         );
 
         // Add platform colliders to player
